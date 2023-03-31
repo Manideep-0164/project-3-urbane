@@ -24,16 +24,20 @@ adminRouter.post("/add/ag", async (req, res) => {
     }
 });
 
-// Getting agriculture data and sorting by query
+// Getting agriculture data and sorting by query and paginating by 10 products
 
 adminRouter.get("/get/ag", async (req, res) => {
-    const {sort,limit} = req.query;
+    const {sort,page} = req.query;
 
     if(sort == "asc")  var filter = 1;
     else if(sort == "dsc") var filter = -1;
-    if(limit) var count = 10
+    if(page) var count = 10
     try {
-            const product = await AGModel.find().sort({price:filter}).limit(count*limit);
+            const product = await AGModel.find().sort({price:filter}).skip((page-1)*count).limit(count);
+            if(!product[0]){
+                res.status(404).send({"msg":"No Data Exist"});
+                return;
+            }
             res.send(product);
     }
     catch(err){
