@@ -6,7 +6,7 @@ const authenticate = (req,res,next)=>{              // User Authentication
     const key = process.env.JWT_KEY_U 
     try{
         jwt.verify(token, key, (err,decoded)=>{
-            if(err) res.send({"error":`Please Login ${err.message}`});
+            if(err) {res.send({"error":`Please Login `}); console.log(err.message)}
             else {
                req.body.author = decoded.userID;
                 console.log("athenticated");

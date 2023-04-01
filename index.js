@@ -17,7 +17,7 @@ app.get("/",(req,res)=>{
 app.use("/users",userRouter);
 
 // app.use(authenticate);
-app.use(authenticateAdmin);
+// app.use(authenticateAdmin);
 app.use("/products",adminRouter);
 
 
