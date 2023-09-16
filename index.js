@@ -5,6 +5,7 @@ const cors = require("cors");
 const { connection } = require("./configs/db");
 const { userRouter } = require("./routes/user.router");
 const { productRouter } = require("./routes/product.router");
+const { cartRouter } = require("./routes/cart.router");
 const {
   authenticate,
   authenticateAdmin,
@@ -22,8 +23,9 @@ app.use("/users", userRouter);
 app.use("/products", adminRouter);
 app.use("/product", productRouter);
 
-// app.use(authenticate);
-// app.use(authenticateAdmin);
+app.use(authenticate);
+
+app.use("/cart", cartRouter);
 
 const PORT = process.env.port || 2020;
 
